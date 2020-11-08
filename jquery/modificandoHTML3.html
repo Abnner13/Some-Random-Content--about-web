@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Modificando HTML #03</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Modificando HTML #03</h1>
+    <div id='conteudo'></div>
+    <script>
+        const employes = [
+            { name: 'Tim', salary: 2999.99 },
+            { name: 'Abnner', salary: 800.99 },
+            { name: 'Ikaro', salary: 1562.99 },
+            { name: 'Carlos', salary: 3654.74 }
+        ]
+     
+
+        $(function() {
+            const linhas = employes.map(emp => {
+                const tdName = $('<td>').append(emp.name)
+                const tdSalary = $('<td>').append(emp.salary)
+                return $('<tr>').append(tdName, tdSalary)
+            })
+
+            const table = $('<table>').append(linhas)            
+            $('#conteudo').append(table)
+        })
+
+    </script>
+</body>

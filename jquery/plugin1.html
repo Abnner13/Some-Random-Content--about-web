@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Plugin #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Plugin #01</h1>
+    <div>
+        {{ 1 + 2 }}
+        Texto 1
+        {{ 3 ** 3 }}
+        Texto 2
+        {{ console.log('Funcionou!') }}
+        Texto 3
+        {{ (function() { return 'Legal!!!' })() }}
+        Texto Final
+    </div>
+
+    <script>
+        (function($) {
+            $.fn.interpretar = function () {
+                const retirarChaves = s => s.substring(2, s.length -2)
+                const conteudo = $(this).html()
+                const expressionWithChaves = conteudo.match(/\{\{.+\}}/g)
+                const expressoes = expressionWithChaves.map(retirarChaves)
+                const result = expressoes.map(e => eval(e))
+
+                let conteudoFinal = conteudo
+                for (let i = 0; i < expressionWithChaves.length; i++) {
+                    conteudoFinal = conteudoFinal.replace(
+                        expressionWithChaves[i], result[i]
+                    )                
+                }
+                $(this).html(conteudoFinal)
+            }
+            
+        })(jQuery)
+        $('div').interpretar()
+</script>
+</body>
